@@ -100,6 +100,21 @@ def return_midi(key: str = 'C', length: int = 16):
     )
 
 
+@app.get('/markov_midi')
+def return_markov_midi(key: str = 'C', length: int = 16):
+    a = _generate_sequence('markov', length=length)
+    midi_stream = _generate_midi(a, key=key)
+    mf = music21.midi.translate.streamToMidiFile(midi_stream)
+    midi_data = mf.writestr()
+
+    filename = f'{int(time.time())}.mid'
+    return StreamingResponse(
+        io.BytesIO(midi_data),
+        media_type="audio/midi",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
 def main():
     """
     sample usage:
@@ -111,6 +126,11 @@ def main():
     midi = _generate_midi(a, 'C')
     filepath = f'./midis/{int(time.time())}.mid'
     midi.write('midi', filepath)
+    
+    c = _generate_sequence('markov', 16)
+    midi_markov = _generate_midi(c, 'C')
+    filepath_markov = f'./midis/{int(time.time())}_markov.mid'
+    midi_markov.write('midi', filepath_markov)
 
 
 if __name__ == '__main__':
