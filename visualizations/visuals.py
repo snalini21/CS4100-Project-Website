@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 from models.markov_model import MarkovChordModel
 from models.generate_chords_from_model import load_model_and_generate
@@ -158,6 +159,17 @@ def save_metric_comparison(metrics, filename):
     plt.savefig(f"visualizations/{filename}")
     plt.close()
 
+#Fitness plot from genetic algorithm model
+def save_ga_fitness(fitness_history, filename):
+    plt.figure(figsize=(8, 5))
+    plt.plot(fitness_history)
+    plt.xlabel("Generation")
+    plt.ylabel("Fitness")
+    plt.title("GA Fitness over Generations")
+    plt.tight_layout()
+    plt.savefig(f'visualizations/{filename}')
+    plt.close()
+
 
 #Further adding onto visuals for presentation
 def save_generated_progressions_text(markov_prog, lstm_prog, ga_prog, filename):
@@ -209,7 +221,7 @@ def main():
     )
 
     #Run model (ga)
-    ga_prog = generate_progression(
+    ga_prog, fitness_history = generate_progression(
         data_path,
         length=50
     )
@@ -255,6 +267,8 @@ def main():
         ga_prog,
         "generated_progressions.txt"
     )
+
+    save_ga_fitness(fitness_history, "ga_fitness.png")
 
     print("Saved files to visualizations")
     print()
