@@ -26,7 +26,8 @@ def _generate_sequence(model_type, length, dataset_type='no_repeats'):
 
     elif model_type.lower() == 'genetic' or model_type.lower() == 'ga':
         filepath = f'models/data/chord_bases{"_no_repeats" * (dataset_type == "no_repeats")}.txt'
-        out.extend(generate_progression(filepath=filepath, length=length))
+        ga_prog, _ = generate_progression(filepath=filepath, length=length)
+        out.extend(ga_prog)
         return out
 
     elif model_type.lower() == 'markov':
