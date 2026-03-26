@@ -76,7 +76,7 @@ def load_progressions(filepath):
 #Main function to run the file/model
 def main():
   #Load dataset
-  data = load_progressions("models/data/chord_bases_1.txt")
+  data = load_progressions("models/data/chord_bases.txt")
 
   #Initialize model
   model = MarkovChordModel()
