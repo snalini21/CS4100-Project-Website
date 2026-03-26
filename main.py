@@ -24,8 +24,7 @@ def _generate_sequence(model_type, length):
         return out
 
     elif model_type.lower() == 'genetic' or model_type.lower() == 'ga':
-        ga_prog, _ = generate_progression('models/data/chord_bases_1.txt', length=length)
-        out.extend(ga_prog)
+        out.extend(generate_progression('models/data/chord_bases_1.txt', length=length))
         return out
 
     elif model_type.lower() == 'markov':
