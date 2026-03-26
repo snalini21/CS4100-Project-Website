@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import io
 from fastapi.responses import Response, StreamingResponse
 from models.generate_chords_from_model import load_model_and_generate
@@ -86,8 +86,19 @@ def _generate_midi(progression, key):
 
 
 @app.get('/midi')
-def return_midi(key: str = 'C', length: int = 16):
-    a = _generate_sequence('lstm', length=length)
+def return_midi(model_type = 'ga', key: str = 'C', length: int = 16):
+    """
+    Usage:
+    :param model_type: ga, genetic, lstm, or markov (case insensitive)
+    :param key: c, C, c#, c#, cb, Cb etc (for every key, majors/minors and sharps/flats)
+    :param length: length of generated sequence; if using lstm, make it an integer multiple of 16
+    :return: midi file with generated music
+    """
+    try:
+        a = _generate_sequence(model_type=model_type, length=length)
+    except:
+        raise HTTPException(status_code=404,
+                            detail='Please have the model type be lstm, genetic, ga, or markov (case insensitive)')
     midi_stream = _generate_midi(a, key=key)
     mf = music21.midi.translate.streamToMidiFile(midi_stream)
     midi_data = mf.writestr()
