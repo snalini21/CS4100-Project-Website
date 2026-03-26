@@ -3,3 +3,5 @@ numpy
 fastapi
 music21
 uvicorn
+mido
+pyfluidsynth
