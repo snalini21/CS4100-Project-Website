@@ -50,10 +50,16 @@ def crossover(parent1, parent2):
 def generate_progression(filepath, length=4, pop_size=20, gens=50):
     probs, all_chords = build_transition_matrix(filepath)
     population = [[random.choice(all_chords) for _ in range(length)] for _ in range(pop_size)]
+    fitness_history = []
 
     for _ in range(gens):
         # sort by fitness
         population = sorted(population, key=lambda p: calculate_fitness(p, probs), reverse=True)
+        
+        # track fitness
+        best_overall_fitness = calculate_fitness(population[0], probs)
+        fitness_history.append(best_overall_fitness)
+        
         next_gen = population[:2]
 
         while len(next_gen) < pop_size:
@@ -64,5 +70,5 @@ def generate_progression(filepath, length=4, pop_size=20, gens=50):
 
         population = next_gen
 
-    return population[0]
+    return population[0], fitness_history
 

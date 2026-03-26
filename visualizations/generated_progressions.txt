@@ -1,0 +1,10 @@
+Generated Progressions
+
+Markov:
+I iv v iv v VII VII II vii III III VI IV IV I iii iv vii vii VI vi i v iii iii i vii iv vi vi ii II V v iii I iv i i I iii ii iii III III V V V V vi
+
+LSTM:
+V I I I V I I V v I I vii I V I I I iii I VI iii i i i VI VI VI VI VI VI VI VI VI VI i i iv iv iv iv i i i i i i i i i i
+
+Genetic Algorithm:
+i i i V V VI VI VI v vi iii i vii vii II II v v v iii IV IV IV v vii VI VI VI VII iv iv iv vii i iii iii ii i iii iii iii i i IV IV vi vii V V V
