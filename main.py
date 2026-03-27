@@ -183,9 +183,14 @@ def return_audio(
             detail=f"Soundfont not found at {SOUNDFONT_PATH}. Make sure GeneralUser-GS.sf2 is in the midi_audio folder."
         )
 
-    # Reusing the /midi endpoint logic
-    midi_response = return_midi(model_type=model_type, key=key, length=length, dataset_type=dataset_type)
-    midi_data = b"".join(midi_response.body_iterator)
+    try:
+        progression = _generate_sequence(model_type=model_type, length=length, dataset_type=dataset_type)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    midi_stream = _generate_midi(progression, key=key)
+    mf = music21.midi.translate.streamToMidiFile(midi_stream)
+    midi_data = mf.writestr()
 
     # Write MIDI to temp file, convert to WAV using midi_player
     with tempfile.NamedTemporaryFile(suffix='.mid', delete=False) as midi_tmp:
@@ -211,6 +216,18 @@ def return_audio(
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
+@app.get('/chords')
+def return_chords(
+    model_type: str = 'ga',
+    key: str = 'C',
+    length: int = 16,
+    dataset_type: str = 'no_repeats'
+):
+    try:
+        progression = _generate_sequence(model_type=model_type, length=length, dataset_type=dataset_type)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    return {"model": model_type, "key": key, "length": length, "chords": progression}
 
 def main():
     """
