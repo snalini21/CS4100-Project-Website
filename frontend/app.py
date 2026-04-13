@@ -228,7 +228,7 @@ div[data-testid="stVerticalBlock"] > div {{ gap: 0.4rem; }}
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 
-API_BASE = "https://cs4100-chordlyai.onrender.com"
+API_BASE = "cs4100-project-website-production.up.railway.app"
 
 MODELS = {
     'Genetic Algorithm': 'ga',
