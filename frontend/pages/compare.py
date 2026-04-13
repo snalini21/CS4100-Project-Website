@@ -85,7 +85,7 @@ div[data-testid="stSelectbox"] > div > div {{
 </style>
 """, unsafe_allow_html=True)
 
-API_BASE = "http://localhost:8000"
+API_BASE = "https://cs4100-project-website-production.up.railway.app"
 MODELS = {'Genetic Algorithm': 'ga', 'Markov Chain': 'markov', 'LSTM': 'lstm'}
 MODEL_INFO = {
     'ga':     {'label': 'Genetic Algorithm', 'color': '#00e5ff'},
