@@ -209,3 +209,24 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# LLM USAGE 
+# Prompt:
+# Used a large language model (Claude) to improve code readability, structure,
+# and documentation. Prompts included requests to:
+# - Add clear, descriptive comments explaining each section of the code
+# - Refactor functions for better organization and modularity
+# - Improve naming consistency and overall clarity
+# - Provide usage examples and command-line interface guidance
+#
+# What we implemented:
+# - Added structured section headers and inline comments throughout the code
+# - Improved function organization (init_synth, playback, WAV export, etc.)
+# - Standardized instrument mapping and argument parsing
+# - Enhanced docstrings and usage instructions for maintainability
+# - Minor refactoring for clarity without changing core functionality
+#
+# Note:
+# The LLM was used only as a coding assistant. All logic, design decisions,
+# and final verification were reviewed and approved by the developers.
+# 
